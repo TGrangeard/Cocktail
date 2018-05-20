@@ -1,0 +1,6 @@
+<div class='row'>
+  <!-- [cocktails] => variable enfant / 'cocktails' => variable parent -->
+  <!-- (pickEvent) => Evenement index de l'enfant / pickCocktail($event) => methode parent $event = pickEvent = index -->
+  <app-cocktails-list (pickEvent)=pickCocktail($event) [cocktails]='cocktails' class='col-5'></app-cocktails-list>
+  <app-cocktails-details [cocktail]='cocktail' class='col-7'></app-cocktails-details>
+</div>

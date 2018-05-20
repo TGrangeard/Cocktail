@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="list-group col-12">
+    <!-- Au click on renvoie l'index du ngfor à la methode pickCocktail() sous forme d'évenement -->
+    <a (click)='pickCocktail(index)' *ngFor="let cocktail of cocktails; let index = index" href="#" class="list-group-item list-group-action">{{cocktail.name}}</a>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <button class="btn btn-success col-12">
+    Ajouter un cocktail
+  </button>
+</div>

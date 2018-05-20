@@ -9,23 +9,22 @@ import { CocktailService } from "../../shared/services/cocktail.service";
 })
 export class CocktailsListComponent implements OnInit {
 
+  cocktails: Cocktail[];
   activeCocktail: number;
-  
-// Récupération du cocktail sur le parent
-@Input() cocktails: Cocktail[];
-
-@Output() pickEvent: EventEmitter<number> = new EventEmitter<number>();
-
-pickCocktail(index: number): void {
-
-  this.activeCocktail = index;
-  // Emission de l'index à chaque appel de la methode
-  this.pickEvent.emit(index);
-}
 
   constructor(private cocktailService: CocktailService) { }
 
   ngOnInit() {
+    // Souscription à l'observable 'cocktails' de type behavior retournant un tableau 'cocktails'
+    this.cocktailService.cocktails.subscribe( (cocktails: Cocktail[]) => {
+      this.cocktails = cocktails;
+    });
+  }
+
+  pickCocktail(index: number): void {
+    this.activeCocktail = index;
+    // Methode du service cocktail
+    this.cocktailService.selectCocktail(index);
   }
 
 }

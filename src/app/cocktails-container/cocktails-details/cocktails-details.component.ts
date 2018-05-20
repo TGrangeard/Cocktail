@@ -10,13 +10,15 @@ import { CocktailService } from "../../shared/services/cocktail.service";
 })
 export class CocktailsDetailsComponent implements OnInit {
 
-  @Input() cocktail:Cocktail;
+  cocktail:Cocktail;
 
   // public cocktail = new Cocktail('Mojito', 'http://anotherwhiskyformisterbukowski.com/wp-content/uploads/2016/09/mojito-1.jpg', 'Le mojito, prononcé en espagnol, est un cocktail à base de rhum, de citron vert et de feuilles de menthe fraîche, né à Cuba dans les années 1910.');
   
   constructor(private cocktailService: CocktailService) { }
 
   ngOnInit() {
+    // Souscription à l'observable 'cocktail' de type behavior retournant un Cocktail 'cocktail'    
+    this.cocktailService.cocktail.subscribe((cocktail:Cocktail) => this.cocktail = cocktail);
   }
 
 }

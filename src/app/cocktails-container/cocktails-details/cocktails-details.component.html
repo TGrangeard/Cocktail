@@ -8,8 +8,21 @@
 <div class="row">
   <p class="col-12">{{ cocktail.desc }}</p>
 </div>
-<div class="row">
-  <button type="button" class="btn btn-success">
+
+<div class='row'>
+  <ul class='list-group col-12'>
+    <li *ngFor='let ingredient of cocktail.ingredients' class='list-group-item'>
+      {{ ingredient.name }} <span class='badge badge-pill badge-default ml-auto'>{{ ingredient.quantity }}</span>
+    </li>
+  </ul>
+</div>
+<hr>
+
+<div class='row'>
+  <button type='button' class='btn btn-success'>
     Editer le cocktail
+  </button>
+  <button class='btn btn-secondary ml-auto'>
+    Ajouter au panier
   </button>
 </div>

@@ -21,10 +21,10 @@ export class CocktailsListComponent implements OnInit {
     });
   }
 
-  pickCocktail(index: number): void {
-    this.activeCocktail = index;
-    // Methode du service cocktail
-    this.cocktailService.selectCocktail(index);
-  }
+  // pickCocktail(index: number): void {
+  //   this.activeCocktail = index;
+  //   // Methode du service cocktail
+  //   this.cocktailService.selectCocktail(index);
+  // }
 
 }

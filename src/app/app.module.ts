@@ -1,5 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app-routing.module';
 
 
 import { AppComponent } from './app.component';
@@ -8,6 +10,9 @@ import { CocktailsDetailsComponent } from './cocktails-container/cocktails-detai
 import { HeaderComponent } from './header/header.component';
 import { CocktailsContainerComponent } from './cocktails-container/cocktails-container.component';
 import { ActiveDirective } from './shared/directives/active.directive';
+import { CocktailEditComponent } from './cocktails-container/cocktail-edit/cocktail-edit.component';
+import { PanierComponent } from './panier/panier.component';
+import { IngredientsListComponent } from './panier/ingredients-list/ingredients-list.component';
 
 
 @NgModule({
@@ -17,10 +22,14 @@ import { ActiveDirective } from './shared/directives/active.directive';
     CocktailsDetailsComponent,
     HeaderComponent,
     CocktailsContainerComponent,
-    ActiveDirective
+    ActiveDirective,
+    CocktailEditComponent,
+    PanierComponent,
+    IngredientsListComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]

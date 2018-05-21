@@ -32,6 +32,22 @@ export class CocktailService {
     return this.cocktails.value[index];
   }
 
+  addCocktail(cocktail: Cocktail, paramIndex: number[]) {
+    // Utilisation slice pour eviter une copie par référence 
+  
+  if (paramIndex[0] === 1) {
+    console.log(this.cocktails.value[paramIndex[1]]);
+    
+    this.cocktails.value[paramIndex[1]] = {name: cocktail.name, img: cocktail.img, desc: cocktail.desc, ingredients: cocktail.ingredients};
+  } else {
+    const cocktails = this.cocktails.value.slice();
+    cocktails.push({name: cocktail.name, img: cocktail.img, desc: cocktail.desc, ingredients: cocktail.ingredients})
+    this.cocktails.next(cocktails);
+  }
+  // cocktails.push({name: cocktail.name, img: cocktail.img, desc: cocktail.desc, ingredients: cocktail.ingredients})
+  // this.cocktails.next(cocktails);
+}
+
   constructor() { }
 
 }

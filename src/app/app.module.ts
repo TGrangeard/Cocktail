@@ -29,7 +29,8 @@ import { IngredientsListComponent } from './panier/ingredients-list/ingredients-
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

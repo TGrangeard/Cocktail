@@ -12,6 +12,11 @@ import { ActivatedRoute, ParamMap, Params } from "@angular/router";
 export class CocktailsDetailsComponent implements OnInit {
 
   public cocktail:Cocktail;
+  public index:number;
+
+  getUrl() {
+    return '/cocktails/' + this.index + '/edit';
+    }
 
   // public cocktail = new Cocktail('Mojito', 'http://anotherwhiskyformisterbukowski.com/wp-content/uploads/2016/09/mojito-1.jpg', 'Le mojito, prononcé en espagnol, est un cocktail à base de rhum, de citron vert et de feuilles de menthe fraîche, né à Cuba dans les années 1910.');
   
@@ -22,11 +27,21 @@ export class CocktailsDetailsComponent implements OnInit {
     // this.cocktailService.cocktail.subscribe((cocktail:Cocktail) => this.cocktail = cocktail);
 
     // Souscription pour envoyer l'index à la méthode cocktail / index récupéré sur list html ([routerLink]='index')
-    this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
-      if(params.get('index')) {
-        this.cocktail = this.cocktailService.getCocktail(params.get('index'));
-      }else{
-        this.cocktail = this.cocktailService.cocktails.value[0];
+    // this.activatedRoute.paramMap.subscribe((params: ParamMap) => {
+    //   if(params.get('index')) {
+    //     this.cocktail = this.cocktailService.getCocktail(params.get('index'));
+    //   }else{
+    //     this.cocktail = this.cocktailService.cocktails.value[0];
+    //   }
+    // });
+
+    this.activatedRoute.params.subscribe((params: Params) => {
+      if(params.index) {
+      this.index = params.index;
+      this.cocktail = this.cocktailService.getCocktail(params.index);
+      } else {
+      this.index = 0;
+      this.cocktail = this.cocktailService.getCocktail(0);
       }
     });
   }

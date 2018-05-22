@@ -2,6 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Cocktail } from "../../shared/models/cocktail.model";
 import { CocktailService } from "../../shared/services/cocktail.service";
 
+
 @Component({
   selector: 'app-cocktails-list',
   templateUrl: './cocktails-list.component.html',
@@ -11,6 +12,7 @@ export class CocktailsListComponent implements OnInit {
 
   cocktails: Cocktail[];
   activeCocktail: number;
+  recherche: string = '';
 
   constructor(private cocktailService: CocktailService) { }
 

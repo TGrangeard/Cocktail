@@ -1,4 +1,9 @@
 <div class="row">
+  <input type="text" class="form-control" placeholder="Chercher un cocktail..."
+  [(ngModel)]="recherche">
+</div>
+
+<div class="row">
   <!-- <div class="list-group col-12"> -->
     <!-- Au click on renvoie l'index du ngfor à la methode pickCocktail() sous forme d'évenement
     [appActive] => Selector et input => prend un true ou false (voir fichier TS pour la condition) -->
@@ -7,7 +12,7 @@
   <!-- </div> -->
   <div class='list-group col-12'>
     <a
-    *ngFor='let cocktail of cocktails; let index = index'
+    *ngFor='let cocktail of cocktails | filtre:recherche; let index = index'
     [routerLink]='index'
     routerLinkActive='active'
     class='list-group-item list-group-action'>{{cocktail.name}}</a>

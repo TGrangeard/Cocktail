@@ -13,6 +13,7 @@ import { ActiveDirective } from './shared/directives/active.directive';
 import { CocktailEditComponent } from './cocktails-container/cocktail-edit/cocktail-edit.component';
 import { PanierComponent } from './panier/panier.component';
 import { IngredientsListComponent } from './panier/ingredients-list/ingredients-list.component';
+import { FiltrePipe } from './shared/pipes/filtre.pipe';
 
 
 @NgModule({
@@ -25,12 +26,14 @@ import { IngredientsListComponent } from './panier/ingredients-list/ingredients-
     ActiveDirective,
     CocktailEditComponent,
     PanierComponent,
-    IngredientsListComponent
+    IngredientsListComponent,
+    FiltrePipe
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule
+    ReactiveFormsModule, 
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

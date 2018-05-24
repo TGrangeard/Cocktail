@@ -36,14 +36,14 @@ export class CocktailsDetailsComponent implements OnInit {
     // });
 
     this.activatedRoute.params.subscribe((params: Params) => {
-      if(params.index) {
+      if (params.index) {
       this.index = params.index;
-      this.cocktail = this.cocktailService.getCocktail(params.index);
       } else {
       this.index = 0;
-      this.cocktail = this.cocktailService.getCocktail(0);
       }
-    });
+      this.cocktailService.getCocktail(this.index).subscribe(cocktails => this.cocktail =
+      cocktails);
+      });
   }
 
 }

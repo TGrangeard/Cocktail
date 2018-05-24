@@ -1,23 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Cocktail } from '../models/cocktail.model';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Ingredient } from "../models/ingredient.model";
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class CocktailService {
 
-  // Premier observable qui renverra un tableau comme données
-  public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject([
-  // les cocktails
-  // new Cocktail('Mojito', 'http://anotherwhiskyformisterbukowski.com/wp-content/uploads/2016/09/mojito-1.jpg', "Le mojito, prononcé en espagnol, est un cocktail à base de rhum, de citron vert et de feuilles de menthe fraîche, né à Cuba dans les années 1910."),
-  // new Cocktail('Margarita','https://cdn.liquor.com/wp-content/uploads/2017/07/05150949/Frozen-Margarita-720x720-recipe.jpg', "La Margarita est un cocktail à base de tequila, inventé par des Américains au Mexique. C'est un before lunch qui serait une version du cocktail daisy dans lequel on remplaça le brandy par de la téquila." ),
-  // new Cocktail('Sour', 'https://cdn.liquor.com/wp-content/uploads/2016/08/03142547/Most-Popular-Cocktail-Recipes-July-2016-whiskey-sour-720x378-social.jpg', "Le Gin Sour est un cocktail mixte traditionnel qui précède la prohibition aux États-Unis d'Amérique . C'est une combinaison simple de gin, de jus de citron et de sucre. Ajouter de l'eau gazeuse à ceci le transforme en un gin fizz .")
+//   // Premier observable qui renverra un tableau comme données
+//   public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject([
+//   // les cocktails
+//   // new Cocktail('Mojito', 'http://anotherwhiskyformisterbukowski.com/wp-content/uploads/2016/09/mojito-1.jpg', "Le mojito, prononcé en espagnol, est un cocktail à base de rhum, de citron vert et de feuilles de menthe fraîche, né à Cuba dans les années 1910."),
+//   // new Cocktail('Margarita','https://cdn.liquor.com/wp-content/uploads/2017/07/05150949/Frozen-Margarita-720x720-recipe.jpg', "La Margarita est un cocktail à base de tequila, inventé par des Américains au Mexique. C'est un before lunch qui serait une version du cocktail daisy dans lequel on remplaça le brandy par de la téquila." ),
+//   // new Cocktail('Sour', 'https://cdn.liquor.com/wp-content/uploads/2016/08/03142547/Most-Popular-Cocktail-Recipes-July-2016-whiskey-sour-720x378-social.jpg', "Le Gin Sour est un cocktail mixte traditionnel qui précède la prohibition aux États-Unis d'Amérique . C'est une combinaison simple de gin, de jus de citron et de sucre. Ajouter de l'eau gazeuse à ceci le transforme en un gin fizz .")
   
-  {name: 'Mojito', img: 'http://anotherwhiskyformisterbukowski.com/wp-content/uploads/2016/09/mojito-1.jpg', desc:'Le mojito, prononcé en espagnol, est un cocktail à base de rhum, de citron vert et de feuilles de menthe fraîche, né à Cuba dans les années 1910.', ingredients:[{name: 'perrier', quantity:1}, {name: 'menthe', quantity:1}]},
-  {name: 'Margarita', img: 'https://cdn.liquor.com/wp-content/uploads/2017/07/05150949/Frozen-Margarita-720x720-recipe.jpg', desc:'La Margarita est un cocktail à base de tequila, inventé par des Américains au Mexique. C\'est un before lunch qui serait une version du cocktail daisy dans lequel on remplaça le brandy par de la téquila.', ingredients:[{name: 'citron vert', quantity:1}, {name: 'tequila', quantity:3}]},
-  {name: 'Sour', img: 'https://cdn.liquor.com/wp-content/uploads/2016/08/03142547/Most-Popular-Cocktail-Recipes-July-2016-whiskey-sour-720x378-social.jpg', desc:'Le Gin Sour est un cocktail mixte traditionnel qui précède la prohibition aux États-Unis d\'Amérique . C\'est une combinaison simple de gin, de jus de citron et de sucre. Ajouter de l\'eau gazeuse à ceci le transforme en un gin fizz .', ingredients:[{name: 'Bourbon', quantity:2}, {name: 'Citron', quantity:1}]}
+//   {name: 'Mojito', img: 'http://anotherwhiskyformisterbukowski.com/wp-content/uploads/2016/09/mojito-1.jpg', desc:'Le mojito, prononcé en espagnol, est un cocktail à base de rhum, de citron vert et de feuilles de menthe fraîche, né à Cuba dans les années 1910.', ingredients:[{name: 'perrier', quantity:1}, {name: 'menthe', quantity:1}]},
+//   {name: 'Margarita', img: 'https://cdn.liquor.com/wp-content/uploads/2017/07/05150949/Frozen-Margarita-720x720-recipe.jpg', desc:'La Margarita est un cocktail à base de tequila, inventé par des Américains au Mexique. C\'est un before lunch qui serait une version du cocktail daisy dans lequel on remplaça le brandy par de la téquila.', ingredients:[{name: 'citron vert', quantity:1}, {name: 'tequila', quantity:3}]},
+//   {name: 'Sour', img: 'https://cdn.liquor.com/wp-content/uploads/2016/08/03142547/Most-Popular-Cocktail-Recipes-July-2016-whiskey-sour-720x378-social.jpg', desc:'Le Gin Sour est un cocktail mixte traditionnel qui précède la prohibition aux États-Unis d\'Amérique . C\'est une combinaison simple de gin, de jus de citron et de sucre. Ajouter de l\'eau gazeuse à ceci le transforme en un gin fizz .', ingredients:[{name: 'Bourbon', quantity:2}, {name: 'Citron', quantity:1}]}
 
-]);
+// ]);
+
+
+// Initialisation des cocktails à null => Cocktails déjà en BD sur Firebase 
+public cocktails: BehaviorSubject<Cocktail[]> = new BehaviorSubject(null);
+
 
   // Deuxième observable qui renvoie un cocktail avec une instance
   // public cocktail: BehaviorSubject<Cocktail> = new BehaviorSubject(this.cocktails.value[0]);
@@ -28,9 +34,15 @@ export class CocktailService {
   // }
 
   // Choix d'un élément du tableau avec l'index 
-  getCocktail(index: number): Cocktail {
-    return this.cocktails.value[index];
-  }
+  // getCocktail(index: number): Cocktail {
+  //   return this.cocktails.value[index];
+  // }
+
+  // Utilisation d'un observable pour afficher les cocktails 
+  getCocktail(index: number): Observable<Cocktail> {
+    return this.cocktails.filter(cocktails => cocktails != null)
+    .map(cocktails => cocktails[index])
+    }
 
   addCocktail(cocktail: Cocktail, paramIndex: number[]) {
     // Utilisation slice pour eviter une copie par référence 
@@ -46,8 +58,28 @@ export class CocktailService {
   }
   // cocktails.push({name: cocktail.name, img: cocktail.img, desc: cocktail.desc, ingredients: cocktail.ingredients})
   // this.cocktails.next(cocktails);
+
+  // Ajout / Mise à jour des cocktails 
+  this.http.put<Cocktail[]>('https://cocktail-d16b2.firebaseio.com/cocktail.json',
+  this.cocktails.value).subscribe(cocktail => {
+    this.cocktails.next(cocktail)
+  });
 }
 
-  constructor() { }
+cocktailsInit(): void {
+  // Récupération des cocktails 
+  this.http.get<Cocktail[]>('https://cocktail-d16b2.firebaseio.com/cocktail.json').subscribe(cocktail => {
+  this.cocktails.next(cocktail);
+  })
+  }
+
+  constructor(private http: HttpClient) {
+    // Ajout des cocktails au lancement de l'application / Http retourne des observables
+    // this.http.put('https://cocktail-d16b2.firebaseio.com/cocktail.json', this.cocktails.value).subscribe();
+
+    this.cocktailsInit();
+
+   }
+
 
 }

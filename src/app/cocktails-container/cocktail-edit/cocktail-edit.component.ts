@@ -76,7 +76,14 @@ export class CocktailEditComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
       if (params.index) {
       // Choix du cocktail selon l'index et initialisation du formulaire avec les informations
-      this.cocktail = this.cocktailService.getCocktail(params.index);
+      // this.cocktail = this.cocktailService.getCocktail(params.index);
+
+      this.cocktailService.getCocktail(params.index).subscribe(cocktails => {
+        this.cocktail = cocktails;
+        this.initForm(this.cocktail);
+        });
+
+        
       this.initForm(this.cocktail);
       // Si il y a un index => Information Edition d'un cocktail, inscrit
       this.paramIndex[0] = 1;
